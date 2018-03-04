@@ -1,14 +1,14 @@
 {
   "name": "postlude",
   "version": "0.1.0",
-  "description": "A PostCSS plugin with a collection of custom CSS helpers",
+  "description": "An experimental PostCSS plugin with a collection of custom CSS helpers",
   "main": "index.js",
   "files": [
     "lib",
     "utils"
   ],
   "scripts": {
-    "test": "DEBUG=postlude* mocha --reporter spec --full-trace --colors --bail --exit tests",
+    "test": "mocha --reporter spec --full-trace --colors --bail --exit tests",
     "lint": "eslint . --ignore-path .gitignore",
     "lint:fix": "npm run lint:js -- --fix"
   },
