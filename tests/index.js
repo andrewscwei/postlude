@@ -5,7 +5,7 @@ const postcss = require(`postcss`);
 const postlude = require(`../`);
 const { describe, it } = require(`mocha`);
 
-const TEST_DIR = path.join(__dirname, `files`);
+const TEST_DIR = path.join(__dirname, `specs`);
 
 async function compare(funcName) {
   const pcss = fs.readFileSync(path.join(TEST_DIR, `${funcName}.pcss`), `utf8`);
