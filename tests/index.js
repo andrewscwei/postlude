@@ -5,11 +5,11 @@ const postcss = require(`postcss`);
 const postlude = require(`../`);
 const { describe, it } = require(`mocha`);
 
-const TEST_DIR = path.join(__dirname, `specs`);
+const SPECS_DIR = path.join(__dirname, `specs`);
 
 async function compare(funcName) {
-  const pcss = fs.readFileSync(path.join(TEST_DIR, `${funcName}.pcss`), `utf8`);
-  const css = fs.readFileSync(path.join(TEST_DIR, `${funcName}.css`), `utf8`);
+  const pcss = fs.readFileSync(path.join(SPECS_DIR, `${funcName}.pcss`), `utf8`);
+  const css = fs.readFileSync(path.join(SPECS_DIR, `${funcName}.css`), `utf8`);
   const src = await postcss([cssnano]).process(css, { from: undefined });
   const dist = await postcss([postlude, cssnano]).process(pcss, { from : undefined });
 
@@ -20,7 +20,7 @@ async function compare(funcName) {
 }
 
 describe(`postlude`, function() {
-  const funcNames = fs.readdirSync(TEST_DIR).reduce((arr, val) => {
+  const funcNames = fs.readdirSync(SPECS_DIR).reduce((arr, val) => {
     if (!val.endsWith(`.pcss`)) return arr;
     arr.push(path.basename(val, `.pcss`));
     return arr;
