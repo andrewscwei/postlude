@@ -1,0 +1,46 @@
+{
+  "name": "postlude",
+  "version": "0.1.0",
+  "description": "A PostCSS plugin with a collection of custom CSS helpers",
+  "main": "index.js",
+  "files": [
+    "lib",
+    "utils"
+  ],
+  "scripts": {
+    "test": "DEBUG=postlude* mocha --reporter spec --full-trace --colors --bail --exit tests",
+    "lint": "eslint . --ignore-path .gitignore",
+    "lint:fix": "npm run lint:js -- --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewscwei/postlude.git"
+  },
+  "keywords": [
+    "postcss",
+    "plugin",
+    "helpers",
+    "tools",
+    "mixins",
+    "utils",
+    "utilities"
+  ],
+  "author": "Andrew Wei <andrewscwei@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andrewscwei/postlude/issues"
+  },
+  "homepage": "https://github.com/andrewscwei/postlude#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "lodash": "^4.17.5",
+    "postcss": "^6.0.19",
+    "postcss-value-parser": "^3.3.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.2",
+    "cssnano": "^3.10.0",
+    "eslint": "^4.18.2",
+    "mocha": "^5.0.1"
+  }
+}
