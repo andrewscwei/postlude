@@ -1,0 +1,17 @@
+.a {
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.b {
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  min-width: 100%;
+  min-height: 100%;
+  transform: translate3d(-50%, -50%, 0);
+}
