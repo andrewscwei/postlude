@@ -15,7 +15,7 @@ jobs:
       - deploy:
           name: Publish to NPM
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            if [ "${CIRCLE_BRANCH}" == "master" ] && [ "${NPM_AUTH}" != "" ]; then
               if [[ $(git describe --tags) =~ ^v[0-9]+(\.[0-9]+)+(-rc[0-9]+)?(-alpha[0-9]+)?$ ]]; then
                 echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> ~/.npmrc
                 npm publish
@@ -24,3 +24,4 @@ jobs:
                 echo "Skipping publish because this is not a release"
               fi
             fi
+
