@@ -1,0 +1,32 @@
+.a {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.b {
+  top: 50px;
+  right: 40px;
+  bottom: 50px;
+  left: 40px;
+}
+
+.c {
+  top: 100px;
+  right: 40px;
+  bottom: 30px;
+  left: 40px;
+}
+
+.d {
+  top: 100px;
+  bottom: 30px;
+}
+
+.e {
+  top: 100px;
+  right: 100px;
+  bottom: 100px;
+  left: 100px;
+}
