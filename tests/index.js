@@ -3,15 +3,20 @@ const fs = require(`fs`);
 const path = require(`path`);
 const postcss = require(`postcss`);
 const postlude = require(`../`);
+const sorting = require(`postcss-sorting`);
 const { describe, it } = require(`mocha`);
 
 const SPECS_DIR = path.join(__dirname, `specs`);
+const SORTING_CONFIG = {
+  'properties-order': `alphabetical`,
+  'unspecified-properties-position': `bottom`
+};
 
 async function compare(funcName) {
   const pcss = fs.readFileSync(path.join(SPECS_DIR, `${funcName}.pcss`), `utf8`);
   const css = fs.readFileSync(path.join(SPECS_DIR, `${funcName}.css`), `utf8`);
-  const src = await postcss([cssnano]).process(css, { from: undefined });
-  const dist = await postcss([postlude, cssnano]).process(pcss, { from : undefined });
+  const src = await postcss([sorting(SORTING_CONFIG), cssnano]).process(css, { from: undefined });
+  const dist = await postcss([postlude, sorting(SORTING_CONFIG), cssnano]).process(pcss, { from : undefined });
 
   if (src.css !== dist.css) {
     const message = `Unexpected post-processed results\n       Expectation: ${src.css}\n           Reality: ${dist.css}`;

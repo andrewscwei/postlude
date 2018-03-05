@@ -17,10 +17,11 @@ module.exports = postcss.plugin(packageName, function({
   customPropertyPrefix = DEFAULT_CUSTOM_PROPERTY_PREFIX
 } = {}) {
   return function(root) {
-    if (use === `at-rule`) {
+    if (use === `at-rule` || process.env.NODE_ENV === `test`) {
       root.walkAtRules(atRuleName, function(atRule) {
         const t = valueParser(atRule.params);
-        const rule = _.get(t, `nodes[0].type`);
+        const rule = _.get(t, `nodes[0]`);
+
         if (rule.type !== `function`) return;
 
         const funcName = rule.value;
@@ -43,7 +44,8 @@ module.exports = postcss.plugin(packageName, function({
         func.apply(undefined, [atRule].concat(args));
       });
     }
-    else {
+
+    if (use === `property` || process.env.NODE_ENV === `test`) {
       root.walkRules(function(rule) {
         const nodes = rule.nodes.filter(node => {
           return (node.type === `decl` && node.prop.startsWith(customPropertyPrefix));
