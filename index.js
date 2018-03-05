@@ -1,6 +1,7 @@
 const _ = require(`lodash`);
 const debug = require(`debug`)(`postlude`);
 const fs = require(`fs`);
+const isNull = require(`./utils/isNull`);
 const path = require(`path`);
 const postcss = require(`postcss`);
 const valueParser = require(`postcss-value-parser`);
@@ -34,7 +35,7 @@ module.exports = postcss.plugin(packageName, function({
 
         const args = rule.nodes.reduce((arr, node) => {
           if (![`word`, `function`, `string`].includes(node.type)) return arr;
-          arr.push(node.value);
+          arr.push(isNull(node.value) ? undefined : node.value);
           return arr;
         }, []);
 
@@ -64,7 +65,10 @@ module.exports = postcss.plugin(packageName, function({
             debug(`[warn]`, `You should not use comma as a delimiter, use space instead`);
           }
 
-          const args = node.value.split(/ +/);
+          let args = node.value.split(/ +/);
+          args = args.map(val => {
+            return isNull(val) ? undefined : val;
+          });
 
           debug(`Applying ${funcName}(${args.join(`, `)})`);
 
