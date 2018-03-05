@@ -1,7 +1,7 @@
 {
   "name": "postlude",
   "version": "0.1.0",
-  "description": "An experimental PostCSS plugin with a collection of custom CSS helpers",
+  "description": "An experimental PostCSS plugin with a collection of custom CSS properties and at-rules",
   "main": "index.js",
   "files": [
     "lib",

@@ -1,6 +1,6 @@
 # Postlude
 
-Postlude is an experimental [PostCSS](http://postcss.org/) plugin. It is packaged with many handy utility mixins and functions to accomodate efficient styling. These mixins can be expressed as at-rules or custom properties.
+Postlude is an experimental [PostCSS](http://postcss.org/) plugin. It is packaged with many handy custom properties and at-rules to accomodate efficient styling.
 
 ## Usage
 
