@@ -5,17 +5,12 @@ Postlude is an experimental [PostCSS](http://postcss.org/) plugin. It is package
 ## Usage
 
 ```css
-/* You can use the custom property API... */
+/* This custom property... */
 .foo {
   -post-margin: 10px _ _ 20px;
 }
 
-/* ...or the at-rule API... */
-.foo {
-  @post margin(10px, _, _, 20px);
-}
-
-/* ...both yield */
+/* ...becomes */
 .foo {
   margin-top: 10px;
   margin-left: 20px;
@@ -25,11 +20,6 @@ Postlude is an experimental [PostCSS](http://postcss.org/) plugin. It is package
 See [`lib`](./lib) for all available features.
 
 ## Options
-
-### `options.use`
-Default: `property`
-
-This option indicates which API to use: custom property or at-rule. Set it to `property` for custom properties or `at-rule` for at-rules.
 
 ### `options.atRuleName`
 Default: `post`

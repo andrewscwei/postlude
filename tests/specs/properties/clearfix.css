@@ -12,18 +12,3 @@
   display: table;
   clear: both;
 }
-
-.b {
-  *zoom: 1;
-}
-
-.b::before {
-  content: '';
-  display: table;
-}
-
-.b::after {
-  content: '';
-  display: table;
-  clear: both;
-}
