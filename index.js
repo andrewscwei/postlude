@@ -33,8 +33,15 @@ module.exports = postcss.plugin(packageName, function({
       }
 
       const args = rule.nodes ? rule.nodes.reduce((arr, node) => {
-        if (![`word`, `function`, `string`].includes(node.type)) return arr;
-        arr.push(isNull(node.value) ? undefined : node.value);
+        switch (node.type) {
+        case `word`:
+        case `string`:
+          arr.push(isNull(node.value) ? undefined : node.value);
+          break;
+        case `function`:
+          arr.push(valueParser.stringify(node));
+          break;
+        }
         return arr;
       }, []) : [];
 
@@ -66,10 +73,19 @@ module.exports = postcss.plugin(packageName, function({
           debug(`[warn]`, `You should not use comma as a delimiter, use space instead`);
         }
 
-        let args = node.value.split(/ +/);
-        args = args.map(val => {
-          return isNull(val) ? undefined : val;
-        });
+        const t = valueParser(node.value);
+        const args = t.nodes ? t.nodes.reduce((arr, node) => {
+          switch (node.type) {
+          case `word`:
+          case `string`:
+            arr.push(isNull(node.value) ? undefined : node.value);
+            break;
+          case `function`:
+            arr.push(valueParser.stringify(node));
+            break;
+          }
+          return arr;
+        }, []) : [];
 
         debug(`Applying ${funcName}(${args.join(`, `)})`);
 

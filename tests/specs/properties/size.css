@@ -4,7 +4,7 @@
 }
 
 .b {
-  width: 100%;
+  width: calc(100% / 2);
   height: 50px;
   border-radius: 25px;
   overflow: hidden;
