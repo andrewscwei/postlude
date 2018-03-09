@@ -18,7 +18,7 @@ module.exports = postcss.plugin(packageName, function({
 } = {}) {
   return function(root) {
     // Walk at-rules first.
-    root.walkAtRules(atRuleName, async function(atRule) {
+    root.walkAtRules(atRuleName, function(atRule) {
       const t = valueParser(atRule.params);
       const rule = _.get(t, `nodes[0]`);
 
@@ -48,11 +48,11 @@ module.exports = postcss.plugin(packageName, function({
       debug(`Applying ${funcName}(${args.join(`, `)})`);
 
       const func = require(funcPath);
-      await func.apply(undefined, [atRule].concat(args));
+      func.apply(undefined, [atRule].concat(args));
     });
 
     // Then walk custom properties.
-    root.walkRules(async function(rule) {
+    root.walkRules(function(rule) {
       const nodes = rule.nodes.filter(node => {
         return (node.type === `decl` && node.prop.startsWith(customPropertyPrefix));
       });
@@ -90,7 +90,7 @@ module.exports = postcss.plugin(packageName, function({
         debug(`Applying ${funcName}(${args.join(`, `)})`);
 
         const func = require(funcPath);
-        await func.apply(undefined, [node].concat(args));
+        func.apply(undefined, [node].concat(args));
       }
     });
   };
