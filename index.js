@@ -18,39 +18,42 @@ module.exports = postcss.plugin(packageName, function({
 } = {}) {
   return function(root) {
     // Walk at-rules first.
-    root.walkAtRules(atRuleName, function(atRule) {
+    root.walkAtRules(atRuleName, async function(atRule) {
       const t = valueParser(atRule.params);
       const rule = _.get(t, `nodes[0]`);
 
-      if (rule.type !== `function`) return;
+      if ((rule.type !== `function`) && (rule.type !== `word`)) return;
 
       const funcName = rule.value;
-      const funcPath = path.join(__dirname, `lib/properties/${funcName}.js`);
+      const funcPath = path.join(__dirname, `lib/at-rules/${funcName}.js`);
 
       if (!fs.existsSync(funcPath)) {
         debug(`No function found with name "${funcName}"`);
         return;
       }
 
-      const args = rule.nodes.reduce((arr, node) => {
+      const args = rule.nodes ? rule.nodes.reduce((arr, node) => {
         if (![`word`, `function`, `string`].includes(node.type)) return arr;
         arr.push(isNull(node.value) ? undefined : node.value);
         return arr;
-      }, []);
+      }, []) : [];
 
       debug(`Applying ${funcName}(${args.join(`, `)})`);
 
       const func = require(funcPath);
-      func.apply(undefined, [atRule].concat(args));
+      await func.apply(undefined, [atRule].concat(args));
     });
 
     // Then walk custom properties.
-    root.walkRules(function(rule) {
+    root.walkRules(async function(rule) {
       const nodes = rule.nodes.filter(node => {
         return (node.type === `decl` && node.prop.startsWith(customPropertyPrefix));
       });
 
-      nodes.forEach(node => {
+      const n = nodes.length;
+
+      for (let i = 0; i < n; i++) {
+        const node = nodes[i];
         const funcName = node.prop.substring(customPropertyPrefix.length);
         const funcPath = path.join(__dirname, `lib/properties/${funcName}.js`);
 
@@ -71,8 +74,8 @@ module.exports = postcss.plugin(packageName, function({
         debug(`Applying ${funcName}(${args.join(`, `)})`);
 
         const func = require(funcPath);
-        func.apply(undefined, [node].concat(args));
-      });
+        await func.apply(undefined, [node].concat(args));
+      }
     });
   };
 });
