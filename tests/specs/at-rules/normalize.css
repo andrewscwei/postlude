@@ -78,7 +78,6 @@ textarea {
   overflow: auto;
 }
 
-a[type='button'],
 input[type='submit'],
 input[type='reset'],
 input[type='button'],
@@ -236,7 +235,7 @@ form {
   position: static;
 }
 
-a:not([type='button']):not([type='label']) {
+a {
   text-decoration: none;
   background-color: transparent;
 
