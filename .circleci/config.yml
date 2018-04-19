@@ -1,27 +1,79 @@
 version: 2
 jobs:
-  build:
+  test:
     working_directory: ~/repo
     docker:
-      - image: node:8.9.3
+      - image: node:8.9.4
     steps:
       - checkout
       - run:
-          name: Install dependencies
-          command: yarn
+          name: Install APT packages
+          command: apt-get update -y && apt-get install jq -y
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "yarn.lock" }}
+            - dependency-cache-
       - run:
-          name: Run tests
+          name: Install NPM dependencies
+          command: yarn
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - "node_modules"
+      - run:
+          name: Test
           command: npm test
-      - deploy:
-          name: Publish to NPM
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ] && [ "${NPM_AUTH}" != "" ]; then
-              if [[ $(git describe --tags) =~ ^v[0-9]+(\.[0-9]+)+(-rc[0-9]+)?(-alpha[0-9]+)?$ ]]; then
-                echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> ~/.npmrc
-                npm publish
-                echo "Successfully published to NPM"
-              else
-                echo "Skipping publish because this is not a release"
-              fi
-            fi
+      - run:
+          name: Pack
+          command: .circleci/pack.sh
+      - store_artifacts:
+          path: ~/repo/build
 
+  test-and-deploy:
+    working_directory: ~/repo
+    docker:
+      - image: node:8.9.4
+    steps:
+      - checkout
+      - run:
+          name: Install APT packages
+          command: apt-get update -y && apt-get install jq -y
+      - restore_cache:
+          keys:
+            - dependency-cache-{{ checksum "yarn.lock" }}
+            - dependency-cache-
+      - run:
+          name: Install NPM dependencies
+          command: yarn
+      - save_cache:
+          key: dependency-cache-{{ checksum "yarn.lock" }}
+          paths:
+            - "node_modules"
+      - run:
+          name: Test
+          command: npm test
+      - run:
+          name: Pack
+          command: .circleci/pack.sh
+      - store_artifacts:
+          path: ~/repo/build
+      - deploy:
+          name: Deploy
+          command: .circleci/deploy-to-npm.sh
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+          filters:
+            tags:
+              ignore: /^v.*/
+  test-and-deploy:
+    jobs:
+      - test-and-deploy:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
