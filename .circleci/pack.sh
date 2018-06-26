@@ -4,6 +4,6 @@ set -e
 
 source .circleci/get-opts.sh
 
-mkdir build
+mkdir package
 npm pack
-mv $PACKAGE_FILE.tgz build/
+mv $PACKAGE_FILE.tgz package/

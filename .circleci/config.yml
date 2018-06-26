@@ -27,7 +27,7 @@ jobs:
           name: Pack
           command: .circleci/pack.sh
       - store_artifacts:
-          path: ~/repo/build
+          path: ~/repo/package
 
   test-and-deploy:
     working_directory: ~/repo
@@ -56,7 +56,7 @@ jobs:
           name: Pack
           command: .circleci/pack.sh
       - store_artifacts:
-          path: ~/repo/build
+          path: ~/repo/package
       - deploy:
           name: Deploy
           command: .circleci/deploy-to-npm.sh
@@ -72,6 +72,7 @@ workflows:
   test-and-deploy:
     jobs:
       - test-and-deploy:
+          context: npm_deployment
           filters:
             branches:
               ignore: /.*/
