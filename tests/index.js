@@ -18,7 +18,7 @@ async function compare(funcName, { type }) {
   const pcss = fs.readFileSync(path.join(dir, `${funcName}.pcss`), `utf8`);
   const css = fs.readFileSync(path.join(dir, `${funcName}.css`), `utf8`);
   const src = await postcss([sorting(SORTING_CONFIG), cssnano]).process(css, { from: undefined });
-  const dist = await postcss([postlude, sorting(SORTING_CONFIG), cssnano]).process(pcss, { from : undefined });
+  const dist = await postcss([postlude, sorting(SORTING_CONFIG), cssnano]).process(pcss, { from: undefined });
 
   if (src.css !== dist.css) {
     const message = `Unexpected post-processed results\n       Expectation: ${src.css}\n           Reality: ${dist.css}`;

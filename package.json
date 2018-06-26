@@ -1,6 +1,6 @@
 {
   "name": "postlude",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "An experimental PostCSS plugin with a collection of custom CSS properties and at-rules",
   "main": "index.js",
   "files": [
@@ -10,7 +10,7 @@
   "scripts": {
     "test": "mocha --reporter spec --full-trace --colors --bail --exit tests",
     "lint": "eslint . --ignore-path .gitignore",
-    "lint:fix": "npm run lint:js -- --fix"
+    "lint:fix": "npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
