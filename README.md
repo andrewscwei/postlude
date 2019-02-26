@@ -46,7 +46,3 @@ The custom property prefix to use. Defaults to `-post`. Example:
 ## Disclaimer
 
 Postlude is an on-going pet project for experimenting with PostCSS styling techniques. At its current state, it is not production ready, has an ever-changing API, and lacks proper documentation. Its features are driven by internal requirements and is meant for internal use only.
-
-## License
-
-This software is released under the [MIT License](http://opensource.org/licenses/MIT).
