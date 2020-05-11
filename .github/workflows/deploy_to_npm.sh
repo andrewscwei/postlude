@@ -1,6 +1,7 @@
 #!/bin/bash
 
-set -e
+# Required environment variables:
+# - NPM_AUTH: NPM auth token
 
 echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> ~/.npmrc
 npm publish

@@ -1,4 +1,4 @@
-# Postlude
+# Postlude [![npm](https://img.shields.io/npm/v/postlude.svg)](https://www.npmjs.com/package/postlude) [![CI](https://github.com/andrewscwei/postlude/workflows/CI/badge.svg)](https://github.com/andrewscwei/postlude/actions?query=workflow%3ACI) [![CD](https://github.com/andrewscwei/postlude/workflows/CD/badge.svg)](https://github.com/andrewscwei/postlude/actions?query=workflow%3ACD)
 
 Postlude is an experimental [PostCSS](http://postcss.org/) plugin. It is packaged with many handy custom properties and at-rules to accomodate efficient styling.
 
