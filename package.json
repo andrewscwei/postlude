@@ -5,18 +5,18 @@
   "main": "lib/index.js",
   "files": [
     "lib",
-    "res"
+    "css"
   ],
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run lint",
     "build": "npm run clean && tsc",
-    "test": "DEBUG=postlude* mocha -b -c --exit tests",
+    "test": "mocha -b -c --exit tests",
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:fix": "npm run lint:ts:fix && npm run lint:css:fix",
-    "lint:ts": "eslint . --ignore-path .gitignore",
+    "lint:ts": "eslint . --ext ts --ignore-path .gitignore",
     "lint:ts:fix": "npm run lint -- --fix",
-    "lint:css": "stylelint res/**/*.css",
+    "lint:css": "stylelint css/**/*.css",
     "lint:css:fix": "npm run lint:css -- --fix"
   },
   "repository": {
