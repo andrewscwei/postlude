@@ -20,8 +20,8 @@ const postlude = ({
   atRuleName = DEFAULT_AT_RULE_NAME,
   customPropertyPrefix = DEFAULT_CUSTOM_PROPERTY_PREFIX,
 }: Options = {}): Plugin => ({
-  'postcssPlugin': 'postlude',
-  'AtRule': {
+  postcssPlugin: 'postlude',
+  AtRule: {
     [atRuleName]: atRule => {
       const value = valueParser(atRule.params)
       const rule = value.nodes[0]
@@ -36,7 +36,7 @@ const postlude = ({
         func = require(funcPath).default
       }
       catch (err) {
-        return debug('Searching for at-rule processor function...', 'ERR', `No function found with name <${funcName}>`)
+        throw Error(`No custom at-rule found with name <${funcName}>`)
       }
 
       const args = rule.type === 'function' ? rule.nodes.reduce<(string | undefined)[]>((arr, node) => {
@@ -65,7 +65,7 @@ const postlude = ({
       }
     },
   },
-  'Declaration': {
+  Declaration: {
     '*': decl => {
       if (!decl.prop.startsWith(customPropertyPrefix)) return
 
@@ -77,11 +77,11 @@ const postlude = ({
         func = require(funcPath).default
       }
       catch (err) {
-        return debug('Searching for declaration processor function...', 'ERR', `No function found with name <${funcName}>`)
+        throw Error(`No custom property found with name <${funcName}>`)
       }
 
       if (decl.value.indexOf(',') > -1) {
-        debug('Processing declaration value...', 'WARN', 'You should not use comma as a delimiter, use space instead')
+        debug('Processing custom property...', 'WARN', 'You should not use comma as a delimiter, use space instead')
       }
 
       const value = valueParser(decl.value)
