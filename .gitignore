@@ -55,6 +55,7 @@ public
 package
 dist
 build
+lib
 uploads
 docs
 .publish

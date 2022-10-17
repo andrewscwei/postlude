@@ -28,7 +28,7 @@ async function compare(funcName: string, { type }) {
 describe('postlude', function() {
   // Test custom properties.
   if (fs.existsSync(CUSTOM_PROPERTIES_SPECS_DIR)) {
-    const funcNames = fs.readdirSync(CUSTOM_PROPERTIES_SPECS_DIR).reduce((arr, val) => {
+    const funcNames = fs.readdirSync(CUSTOM_PROPERTIES_SPECS_DIR).reduce<string[]>((arr, val) => {
       if (!val.endsWith('.pcss')) return arr
       arr.push(path.basename(val, '.pcss'))
 
@@ -44,7 +44,7 @@ describe('postlude', function() {
 
   // Test at-rules.
   if (fs.existsSync(AT_RULES_SPECS_DIR)) {
-    const rules = fs.readdirSync(AT_RULES_SPECS_DIR).reduce((arr, val) => {
+    const rules = fs.readdirSync(AT_RULES_SPECS_DIR).reduce<string[]>((arr, val) => {
       if (!val.endsWith('.pcss')) return arr
       arr.push(path.basename(val, '.pcss'))
 

@@ -4,7 +4,6 @@ import useDebug from 'debug'
 import path from 'path'
 import { AtRule, Declaration, Plugin } from 'postcss'
 import valueParser from 'postcss-value-parser'
-import { name as packageName, version as packageVersion } from '../package.json'
 import isNull from './utils/isNull'
 
 type Options = {
@@ -17,15 +16,13 @@ const DEFAULT_CUSTOM_PROPERTY_PREFIX = '-post-'
 
 const debug = useDebug('postlude')
 
-debug(`v${packageVersion}`)
-
 export const postcss = true
 
 export default ({
   atRuleName = DEFAULT_AT_RULE_NAME,
   customPropertyPrefix = DEFAULT_CUSTOM_PROPERTY_PREFIX,
 }: Options = {}): Plugin => ({
-  postcssPlugin: packageName,
+  postcssPlugin: 'postcss',
   Once(root) {
     // Walk at-rules first.
     root.walkAtRules(atRuleName, atRule => {
