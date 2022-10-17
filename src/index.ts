@@ -16,9 +16,7 @@ const DEFAULT_CUSTOM_PROPERTY_PREFIX = '-post-'
 
 const debug = useDebug('postlude')
 
-export const postcss = true
-
-export default ({
+const postlude = ({
   atRuleName = DEFAULT_AT_RULE_NAME,
   customPropertyPrefix = DEFAULT_CUSTOM_PROPERTY_PREFIX,
 }: Options = {}): Plugin => ({
@@ -36,7 +34,7 @@ export default ({
       let func: (atRule: AtRule, ...args: any[]) => void
 
       try {
-        func = require(funcPath)
+        func = require(funcPath).default
       }
       catch (err) {
         return debug('Searching for at-rule processor function...', 'ERR', `No function found with name <${funcName}>`)
@@ -58,9 +56,14 @@ export default ({
         return arr
       }, []) : []
 
-      debug(`Applying ${funcName}(${args.join(', ')})...`, 'OK')
-
-      func(atRule, ...args)
+      try {
+        func(atRule, ...args)
+        debug(`Applying ${funcName}(${args.join(', ')})...`, 'OK')
+      }
+      catch (err) {
+        debug(`Applying ${funcName}(${args.join(', ')})...`, 'ERR')
+        throw err
+      }
     })
 
     // Then walk custom properties.
@@ -75,7 +78,7 @@ export default ({
         let func: (decl: Declaration, ...args: any[]) => void
 
         try {
-          func = require(funcPath)
+          func = require(funcPath).default
         }
         catch (err) {
           return debug('Searching for declaration processor function...', 'ERR', `No function found with name <${funcName}>`)
@@ -102,10 +105,19 @@ export default ({
           return arr
         }, []) : []
 
-        debug(`Applying ${funcName}(${args.join(', ')})...`, 'OK')
-
-        func(declaration, ...args)
+        try {
+          func(declaration, ...args)
+          debug(`Applying ${funcName}(${args.join(', ')})...`, 'OK')
+        }
+        catch (err) {
+          debug(`Applying ${funcName}(${args.join(', ')})...`, 'ERR')
+          throw err
+        }
       }
     })
   },
 })
+
+postlude.postcss = true
+
+export default postlude

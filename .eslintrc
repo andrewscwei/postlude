@@ -256,7 +256,7 @@
         "allowSingleLine": true
       }
     ],
-    "capitalized-comments": "error",
+    "capitalized-comments": "warn",
     "comma-dangle": "off",
     "comma-spacing": "off",
     "comma-style": [

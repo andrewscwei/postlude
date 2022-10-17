@@ -39,12 +39,9 @@ const BREAKPOINTS: Record<string, number> = {
 export default function media(atRule: AtRule, descriptor: string) {
   const regex = new RegExp(`(w|h)?(>=|<=|>|<|=)?(${Object.keys(BREAKPOINTS).join('|')}|landscape|portrait|[0-9]+px)?`)
   const matches = descriptor.match(regex)
-
-  if (!matches?.[1]) throw Error('Invalid descriptor provided')
-
-  const length = getLengthNameByShortName(matches[1])
-  const operator = matches[2] || '='
-  const value = matches[3]
+  const length = getLengthNameByShortName(matches?.[1])
+  const operator = matches?.[2] || '='
+  const value = matches?.[3] ?? ''
   const [, amount, unit] = value?.match(/([0-9]+)?(.*)?/) ?? []
 
   let params = '('
@@ -96,7 +93,7 @@ function isOrientation(val: string) {
   return val === 'portrait' || val === 'landscape'
 }
 
-function getLengthNameByShortName(val: string) {
+function getLengthNameByShortName(val?: string) {
   switch (val) {
     case 'h': return 'height'
     default: return 'width'

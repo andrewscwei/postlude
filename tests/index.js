@@ -1,9 +1,10 @@
-import cssnano from 'cssnano'
-import fs from 'fs'
-import path from 'path'
-import postcss from 'postcss'
-import sorting from 'postcss-sorting'
-import postlude from '../lib'
+const cssnano = require('cssnano')
+const fs = require('fs')
+const { describe, it } = require('mocha')
+const path = require('path')
+const postcss = require('postcss')
+const sorting = require('postcss-sorting')
+const { default: postlude } = require('../lib')
 
 const CUSTOM_PROPERTIES_SPECS_DIR = path.join(__dirname, 'specs', 'properties')
 const AT_RULES_SPECS_DIR = path.join(__dirname, 'specs', 'at-rules')
@@ -12,7 +13,7 @@ const SORTING_CONFIG = {
   'unspecified-properties-position': 'bottom',
 }
 
-async function compare(funcName: string, { type }) {
+async function compare(funcName, { type }) {
   const dir = type === 'at-rule' ? AT_RULES_SPECS_DIR : CUSTOM_PROPERTIES_SPECS_DIR
   const pcss = fs.readFileSync(path.join(dir, `${funcName}.pcss`), 'utf8')
   const css = fs.readFileSync(path.join(dir, `${funcName}.css`), 'utf8')
@@ -28,11 +29,10 @@ async function compare(funcName: string, { type }) {
 describe('postlude', function() {
   // Test custom properties.
   if (fs.existsSync(CUSTOM_PROPERTIES_SPECS_DIR)) {
-    const funcNames = fs.readdirSync(CUSTOM_PROPERTIES_SPECS_DIR).reduce<string[]>((arr, val) => {
-      if (!val.endsWith('.pcss')) return arr
-      arr.push(path.basename(val, '.pcss'))
+    const funcNames = fs.readdirSync(CUSTOM_PROPERTIES_SPECS_DIR).reduce((out, val) => {
+      if (!val.endsWith('.pcss')) return out
 
-      return arr
+      return [...out, path.basename(val, '.pcss')]
     }, [])
 
     funcNames.forEach(funcName => {
@@ -44,15 +44,14 @@ describe('postlude', function() {
 
   // Test at-rules.
   if (fs.existsSync(AT_RULES_SPECS_DIR)) {
-    const rules = fs.readdirSync(AT_RULES_SPECS_DIR).reduce<string[]>((arr, val) => {
-      if (!val.endsWith('.pcss')) return arr
-      arr.push(path.basename(val, '.pcss'))
+    const rules = fs.readdirSync(AT_RULES_SPECS_DIR).reduce((out, val) => {
+      if (!val.endsWith('.pcss')) return out
 
-      return arr
+      return [...out, path.basename(val, '.pcss')]
     }, [])
 
     rules.forEach(ruleName => {
-      it(`At-rule: ${ruleName}`, async function() {
+      it(`At-rule: ${ruleName}`, async () => {
         await compare(ruleName, { type: 'at-rule' })
       })
     })

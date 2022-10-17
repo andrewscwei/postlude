@@ -3,20 +3,20 @@
   "version": "0.8.0",
   "description": "An experimental PostCSS plugin with a collection of custom CSS properties and at-rules",
   "main": "lib/index.js",
-  "type": "module",
   "files": [
-    "lib"
+    "lib",
+    "res"
   ],
   "scripts": {
     "clean": "rimraf lib",
     "prebuild": "npm run lint",
     "build": "npm run clean && tsc",
-    "test": "mocha --reporter spec --full-trace --colors --bail --exit tests",
+    "test": "DEBUG=postlude* mocha -b -c --exit tests",
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:fix": "npm run lint:ts:fix && npm run lint:css:fix",
     "lint:ts": "eslint . --ignore-path .gitignore",
     "lint:ts:fix": "npm run lint -- --fix",
-    "lint:css": "stylelint src/**/*.css",
+    "lint:css": "stylelint res/**/*.css",
     "lint:css:fix": "npm run lint:css -- --fix"
   },
   "repository": {
