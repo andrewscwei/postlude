@@ -4,15 +4,18 @@
   "description": "An experimental PostCSS plugin with a collection of custom CSS properties and at-rules",
   "main": "index.js",
   "files": [
-    "lib",
-    "utils"
+    "lib"
   ],
   "scripts": {
-    "build": "echo \"Not ready yet\"",
+    "clean": "rimraf lib",
+    "prebuild": "npm run lint",
+    "build": "npm run clean && tsc",
     "test": "mocha --reporter spec --full-trace --colors --bail --exit tests",
-    "lint": "eslint . --ignore-path .gitignore",
-    "lint:fix": "npm run lint -- --fix",
-    "lint:css": "stylelint tests/**/*.pcss",
+    "lint": "npm run lint:ts && npm run lint:css",
+    "lint:fix": "npm run lint:ts:fix && npm run lint:css:fix",
+    "lint:ts": "eslint . --ignore-path .gitignore",
+    "lint:ts:fix": "npm run lint -- --fix",
+    "lint:css": "stylelint src/**/*.css",
     "lint:css:fix": "npm run lint:css -- --fix"
   },
   "repository": {
@@ -34,19 +37,25 @@
     "url": "https://github.com/andrewscwei/postlude/issues"
   },
   "homepage": "https://github.com/andrewscwei/postlude#readme",
-  "dependencies": {
-    "debug": "^4.3.4",
-    "lodash": "^4.17.21",
-    "postcss": "^8.4.18",
-    "postcss-value-parser": "^4.2.0"
-  },
   "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/lodash": "^4.14.186",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "babel-eslint": "^10.0.3",
     "cssnano": "^5.1.13",
     "eslint": "^8.25.0",
     "mocha": "^10.0.0",
     "postcss-sorting": "^7.0.1",
     "stylelint": "^14.13.0",
-    "stylelint-order": "^5.0.0"
+    "stylelint-order": "^5.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "debug": "^4.3.4",
+    "lodash": "^4.17.21",
+    "postcss": "^8.4.18",
+    "postcss-value-parser": "^4.2.0"
   }
 }
