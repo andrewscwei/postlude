@@ -7,7 +7,7 @@ import postcss, { AtRule } from 'postcss'
  *
  * @param atRule - The {@link AtRule} to transform.
  */
-export default async function normalize(atRule: AtRule) {
+export default function(atRule: AtRule) {
   const file = path.join(__dirname, '../../css/normalize.css')
   const contents = fs.readFileSync(file, { encoding: 'utf8' })
   const processed = postcss.parse(contents, { from: file })

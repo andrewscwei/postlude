@@ -36,7 +36,7 @@ const BREAKPOINTS: Record<string, number> = {
  *
  *   // @media screen and (min-width: 640px) and (max-width: 1023px) { ... }
  */
-export default function media(atRule: AtRule, descriptor: string) {
+export default function(atRule: AtRule, descriptor: string) {
   const regex = new RegExp(`(w|h)?(>=|<=|>|<|=)?(${Object.keys(BREAKPOINTS).join('|')}|landscape|portrait|[0-9]+px)?`)
   const matches = descriptor.match(regex)
   const length = getLengthNameByShortName(matches?.[1])
