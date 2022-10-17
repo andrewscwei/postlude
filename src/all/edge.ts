@@ -1,13 +1,13 @@
 import assert from 'assert'
-import { Declaration } from 'postcss'
+import { AtRule, Declaration } from 'postcss'
 
 /**
  * Sets the edge of an element (i.e. top, right, bottom and left). This function makes setting edges
- * similar to margins and paddings where you can apply a list of up to 4 values to set all edges. If
- * `_` is specified for a specific edge, that edge will not be set. If `~` is specified for a
+ * similar to margins and paddings where you can apply a list of up to 4 values to define all edges.
+ * If `_` is specified for a specific edge, that edge will not be set. If `~` is specified for a
  * specific edge, it will take the value of the previous edge.
  *
- * @param decl - The {@link Declaration} to transform.
+ * @param node - The {@link AtRule} or {@link Declaration} to transform.
  * @param top - Value for the top edge.
  * @param right - Value for the right edge.
  * @param bottom - Value for the bottom edge.
@@ -36,7 +36,7 @@ import { Declaration } from 'postcss'
  *   // right: 5px;
  *   // bottom: 5px;
  */
-export default function(decl: Declaration, top: string, right?: string, bottom?: string, left?: string) {
+export default function(node: AtRule | Declaration, top: string, right?: string, bottom?: string, left?: string) {
   assert(top, 'Param "top" is required but not specified')
 
   const t = top === '_' ? undefined : top
@@ -66,10 +66,10 @@ export default function(decl: Declaration, top: string, right?: string, bottom?:
   }
 
   const rules = []
-  if (t) rules.push({ prop: 'top', value: t, source: decl.source })
-  if (r) rules.push({ prop: 'right', value: r, source: decl.source })
-  if (b) rules.push({ prop: 'bottom', value: b, source: decl.source })
-  if (l) rules.push({ prop: 'left', value: l, source: decl.source })
+  if (t) rules.push({ prop: 'top', value: t, source: node.source })
+  if (r) rules.push({ prop: 'right', value: r, source: node.source })
+  if (b) rules.push({ prop: 'bottom', value: b, source: node.source })
+  if (l) rules.push({ prop: 'left', value: l, source: node.source })
 
-  decl.replaceWith(...rules)
+  node.replaceWith(...rules)
 }

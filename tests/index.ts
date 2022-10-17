@@ -14,20 +14,20 @@ const SORTING_CONFIG = {
   'unspecified-properties-position': 'bottom',
 }
 
-async function compare(funcName: string, type: 'at-rule' | 'property') {
-  const dir = path.join(__dirname, type === 'at-rule' ? 'at-rules' : 'properties')
+async function compare(funcName: string, type: 'at-rule' | 'declaration') {
+  const dir = path.join(__dirname, type === 'at-rule' ? 'at-rules' : 'declarations')
   const pcssRaw = fs.readFileSync(path.join(dir, `${funcName}.pcss`), 'utf8')
   const cssRaw = fs.readFileSync(path.join(dir, '__snapshots__', `${funcName}.css`), 'utf8')
   const pcssProcessed = await postcss([postludePlugin, sortingPlugin(SORTING_CONFIG), cssnano]).process(pcssRaw, { from: undefined })
   const cssProcessed = await postcss([sortingPlugin(SORTING_CONFIG), cssnano]).process(cssRaw, { from: undefined })
 
   if (pcssProcessed.css !== cssProcessed.css) {
-    const message = `Unexpected post-processed results\n       Expectation: ${cssProcessed.css}\n           Reality: ${pcssProcessed.css}`
+    const message = `Unexpected post-processed results\n\tExpectation: ${cssProcessed.css}\n\tReality: ${pcssProcessed.css}`
     throw new Error(message)
   }
 }
 
-describe('postludePlugin', () => {
+describe('postlude', () => {
   describe('at-rules', () => {
     const rules = fs.readdirSync(path.join(__dirname, 'at-rules'))
       .filter(t => path.extname(t) === '.pcss')
@@ -40,14 +40,14 @@ describe('postludePlugin', () => {
     })
   })
 
-  describe('custom properties', () => {
-    const funcNames = fs.readdirSync(path.join(__dirname, 'properties'))
+  describe('declarations', () => {
+    const funcNames = fs.readdirSync(path.join(__dirname, 'declarations'))
       .filter(t => path.extname(t) === '.pcss')
       .map(t => path.basename(t, '.pcss'))
 
     funcNames.forEach(funcName => {
       it(`${funcName}`, async function() {
-        await compare(funcName, 'property')
+        await compare(funcName, 'declaration')
       })
     })
   })

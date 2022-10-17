@@ -1,12 +1,12 @@
 import assert from 'assert'
-import { Declaration } from 'postcss'
+import { AtRule, Declaration } from 'postcss'
 
 /**
  * Sets the margin of the target selector. Similar to the original 'margin' CSS rule, except for the
  * addition of 2 values: `_` and `~`. If `_` is used, that side will not be set. If `~` is used,
  * that side will take the value of the previous side.
  *
- * @param decl - The {@link Declaration} to transform.
+ * @param node - The {@link AtRule} or {@link Declaration} to transform.
  * @param top - Value for the top margin.
  * @param right - Value for the right margin.
  * @param bottom - Value for the bottom margin.
@@ -35,7 +35,7 @@ import { Declaration } from 'postcss'
  *   // margin-right: 5px;
  *   // margin-bottom: 5px;
  */
-export default function(decl: Declaration, top: string, right?: string, bottom?: string, left?: string) {
+export default function(node: AtRule | Declaration, top: string, right?: string, bottom?: string, left?: string) {
   assert(top, 'Param "top" is required but not specified')
 
   const t = top === '_' ? undefined : top
@@ -65,10 +65,10 @@ export default function(decl: Declaration, top: string, right?: string, bottom?:
   }
 
   const rules = []
-  if (t) rules.push({ prop: 'margin-top', value: t, source: decl.source })
-  if (r) rules.push({ prop: 'margin-right', value: r, source: decl.source })
-  if (b) rules.push({ prop: 'margin-bottom', value: b, source: decl.source })
-  if (l) rules.push({ prop: 'margin-left', value: l, source: decl.source })
+  if (t) rules.push({ prop: 'margin-top', value: t, source: node.source })
+  if (r) rules.push({ prop: 'margin-right', value: r, source: node.source })
+  if (b) rules.push({ prop: 'margin-bottom', value: b, source: node.source })
+  if (l) rules.push({ prop: 'margin-left', value: l, source: node.source })
 
-  decl.replaceWith(...rules)
+  node.replaceWith(...rules)
 }

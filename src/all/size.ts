@@ -1,18 +1,19 @@
 import assert from 'assert'
-import { Declaration } from 'postcss'
+import { AtRule, Declaration } from 'postcss'
 import valueParser from 'postcss-value-parser'
 import isBool from '../utils/isBool'
 
 /**
  * Sets the size of the target selector.
  *
- * @param decl - The {@link Declaration} to transform.
- * @param args - First argument indicates the width. Second argument indicates the height. If
- *               unspecified, the width will be used as the height. The third and last argument
- *               indicates whether the selector is an oval by applying border-radius that is half of
- *               its smallest edge.
+ * @param node - The {@link AtRule} or {@link Declaration} to transform.
+ * @param args - A minimum of 1 to a maximum of 3 arguments:
+ *               1. The width
+ *               2. The height (defaults to the width)
+ *               3. Indicates whether the selector is an oval by applying `border-radius` rule that
+ *                  is half of its smallest edge.
  */
-export default function(decl: Declaration, ...args: string[]) {
+export default function(node: AtRule | Declaration, ...args: string[]) {
   assert(args.length >= 1 && args.length <= 3, 'This method must accept 1..3 arguments')
   assert(!isBool(args[0]), 'First argument must be the width')
 
@@ -22,8 +23,8 @@ export default function(decl: Declaration, ...args: string[]) {
 
   const rules = []
 
-  if (width !== '_') rules.push({ prop: 'width', value: width, source: decl.source })
-  if (height !== '_') rules.push({ prop: 'height', value: height, source: decl.source })
+  if (width !== '_') rules.push({ prop: 'width', value: width, source: node.source })
+  if (height !== '_') rules.push({ prop: 'height', value: height, source: node.source })
   if (isOval) {
     const w = valueParser.unit(width ?? '')
     const h = valueParser.unit(height ?? '')
@@ -46,10 +47,10 @@ export default function(decl: Declaration, ...args: string[]) {
     }
 
     if (diameter) {
-      rules.push({ prop: 'border-radius', value: `${Number(diameter.number) / 2}${diameter.unit}`, source: decl.source })
-      rules.push({ prop: 'overflow', value: 'hidden', source: decl.source })
+      rules.push({ prop: 'border-radius', value: `${Number(diameter.number) / 2}${diameter.unit}`, source: node.source })
+      rules.push({ prop: 'overflow', value: 'hidden', source: node.source })
     }
   }
 
-  decl.replaceWith(...rules)
+  node.replaceWith(...rules)
 }

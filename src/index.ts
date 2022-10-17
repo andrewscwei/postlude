@@ -6,25 +6,23 @@
 
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
-import useDebug from 'debug'
 import path from 'path'
 import { AtRule, Declaration, Plugin } from 'postcss'
 import valueParser from 'postcss-value-parser'
 import isNull from './utils/isNull'
+import debug from './utils/useDebug'
 
 type Options = {
   atRuleName?: string
-  customPropertyPrefix?: string
+  declarationPrefix?: string
 }
 
 const DEFAULT_AT_RULE_NAME = 'post'
-const DEFAULT_CUSTOM_PROPERTY_PREFIX = '-post-'
-
-const debug = useDebug('postlude')
+const DEFAULT_DECLARATION_PREFIX = '-post-'
 
 const postlude = ({
   atRuleName = DEFAULT_AT_RULE_NAME,
-  customPropertyPrefix = DEFAULT_CUSTOM_PROPERTY_PREFIX,
+  declarationPrefix = DEFAULT_DECLARATION_PREFIX,
 }: Options = {}): Plugin => ({
   postcssPlugin: 'postlude',
   AtRule: {
@@ -35,31 +33,8 @@ const postlude = ({
       if (rule.type !== 'function' && rule.type !== 'word') return
 
       const funcName = rule.value
-      const funcPath = path.join(__dirname, `./at-rules/${funcName}`)
-      let func: (atRule: AtRule, ...args: any[]) => void
-
-      try {
-        func = require(funcPath).default
-      }
-      catch (err) {
-        throw Error(`No custom at-rule found with name <${funcName}>`)
-      }
-
-      const args = rule.type === 'function' ? rule.nodes.reduce<(string | undefined)[]>((arr, node) => {
-        switch (node.type) {
-          case 'word':
-          case 'string':
-            arr.push(isNull(node.value) ? undefined : node.value)
-            break
-          case 'function':
-            arr.push(valueParser.stringify(node))
-            break
-          default:
-            break
-        }
-
-        return arr
-      }, []) : []
+      const func = getFunc(funcName, 'at-rule')
+      const args = getArgs(rule)
 
       try {
         func(atRule, ...args)
@@ -73,39 +48,11 @@ const postlude = ({
   },
   Declaration: {
     '*': decl => {
-      if (!decl.prop.startsWith(customPropertyPrefix)) return
+      if (!decl.prop.startsWith(declarationPrefix)) return
 
-      const funcName = decl.prop.substring(customPropertyPrefix.length)
-      const funcPath = path.join(__dirname, `./properties/${funcName}`)
-      let func: (decl: Declaration, ...args: any[]) => void
-
-      try {
-        func = require(funcPath).default
-      }
-      catch (err) {
-        throw Error(`No custom property found with name <${funcName}>`)
-      }
-
-      if (decl.value.indexOf(',') > -1) {
-        debug('Processing custom property...', 'WARN', 'You should not use comma as a delimiter, use space instead')
-      }
-
-      const value = valueParser(decl.value)
-      const args = value.nodes ? value.nodes.reduce<(string | undefined)[]>((arr, node) => {
-        switch (node.type) {
-          case 'word':
-          case 'string':
-            arr.push(isNull(node.value) ? undefined : node.value)
-            break
-          case 'function':
-            arr.push(valueParser.stringify(node))
-            break
-          default:
-            break
-        }
-
-        return arr
-      }, []) : []
+      const funcName = decl.prop.substring(declarationPrefix.length)
+      const func = getFunc(funcName, 'declaration')
+      const args = getArgs(valueParser(decl.value))
 
       try {
         func(decl, ...args)
@@ -122,3 +69,43 @@ const postlude = ({
 postlude.postcss = true
 
 export default postlude
+
+/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
+function getFunc(name: string, type: 'at-rule' | 'declaration'): (node: AtRule | Declaration, ...args: any[]) => void {
+  const funcPath = path.join(__dirname, type === 'at-rule' ? 'at-rules' : 'declarations', name)
+  const altFuncPath = path.join(__dirname, 'all', name)
+
+  try {
+    return require(funcPath).default
+  }
+  catch {
+    try {
+      return require(altFuncPath).default
+    }
+    catch {
+      throw Error(`No custom ${type} found with name <${name}>`)
+    }
+  }
+}
+
+function getArgs(value: any): any[] {
+  const nodes: any[] = value.nodes
+
+  if (!nodes) return []
+
+  return nodes.reduce<(string | undefined)[]>((args, node) => {
+    switch (node.type) {
+      case 'word':
+      case 'string':
+        args.push(isNull(node.value) ? undefined : node.value)
+        break
+      case 'function':
+        args.push(valueParser.stringify(node))
+        break
+      default:
+        break
+    }
+
+    return args
+  }, [])
+}
