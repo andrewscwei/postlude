@@ -12,6 +12,7 @@
     "prebuild": "npm run lint",
     "build": "npm run clean && tsc",
     "test": "mocha -r ts-node/register -b -c --extension .ts --exit tests",
+    "test:ts": "LIB_PATH=src mocha -r ts-node/register -b -c --extension .ts --exit tests",
     "lint": "npm run lint:ts && npm run lint:css",
     "lint:fix": "npm run lint:ts:fix && npm run lint:css:fix",
     "lint:ts": "eslint . --ext ts --ignore-path .gitignore",

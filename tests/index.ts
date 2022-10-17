@@ -6,7 +6,7 @@ import path from 'path'
 import postcss from 'postcss'
 import { main as packageMain } from '../package.json'
 
-const { default: postludePlugin } = require(path.join(__dirname, '../', packageMain))
+const { default: postludePlugin } = require(path.join(__dirname, '../', process.env.LIB_PATH || packageMain))
 const sortingPlugin = require('postcss-sorting')
 
 const SORTING_CONFIG = {

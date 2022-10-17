@@ -6,7 +6,7 @@ const MAX_SIZE = 100_000
 
 const BREAKPOINTS: Record<string, number> = {
   mobile: 639,
-  tablet: 1023,
+  tablet: 1024,
   notebook: 1439,
   desktop: 1919,
   tv: MAX_SIZE,

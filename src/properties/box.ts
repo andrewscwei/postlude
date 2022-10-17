@@ -3,9 +3,8 @@ import postcss, { Declaration, Rule } from 'postcss'
 import getDirection from '../utils/getDirection'
 
 /**
- * Transforms the target selector into a flexbox of the specified `type`. Special cases include
- * types specified `default`, `filled` or `constrained`. Wrap `type` with `()` or prefix it with
- * `inline-` to use the inline equivalent.
+ * Transforms the target selector into a flexbox of the specified `type`: `default`, `filled` or
+ * `constrained`. Wrap `type` with `()` or prefix it with `inline-` to use the inline equivalent.
  *
  * `default` - Freely aligns child elements without interfering with their width and height. Child
  *             elements can then specify their own dimensions.
@@ -16,15 +15,15 @@ import getDirection from '../utils/getDirection'
  *   `v` = `flex-direction: column`
  *   `<` = `flex-direction: row-reverse`
  *
- * `constrained` - Arranges children in the specified `flex-direction` using The lengths of the
- *                 children that are parallel to the `flex-direction` are NOT inferred and MUST BE
- *                 specified by the children. On the other hand, the lengths of the children that
- *                 are perpendicular to the `flex-direction` automatically match that of the
- *                 container. If the total length of the children in the specified `flex-direction`
- *                 exceeds that of the container, the length of each child will shrink
- *                 (`flex-shrink: 1`) proportionally according to its original length to fit the
- *                 container. It is not recommended to add `padding` to the children because
- *                 `padding` is used as part of the calculation for `flex-shrink`.
+ * `constrained` - Automatically arranges children in the specified `flex-direction`. The lengths of
+ *                 the children that are parallel to the `flex-direction` are not set and must be
+ *                 specified by the children. Contrarily, the lengths of the children that are
+ *                 perpendicular to the `flex-direction` will match that of the container. If the
+ *                 total length of the children in the specified `flex-direction` exceeds that of
+ *                 the container, the length of each child will shrink (`flex-shrink: 1`)
+ *                 proportional to its original length in order to fit the container. It is not
+ *                 recommended to add `padding` to the children because `padding` is used as part of
+ *                 the calculation for `flex-shrink`.
  *
  * Syntax: `constrained{^|>|v|<}`, where:
  *   `^` = `flex-direction: column-reverse`
@@ -33,9 +32,8 @@ import getDirection from '../utils/getDirection'
  *   `<` = `flex-direction: row-reverse`
  *
  * `filled` - Opposite of `constrained`, where a `filled` flexbox automatically stretches its
- *            children evenly to fill the container in the specified `flex-direction`. Like
- *            `default`, avoid adding `padding` to child elements in case of unexpected size
- *            adjustments.
+ *            children evenly to fill itself in the specified `flex-direction`. Avoid adding
+ *            `padding` to child elements.
  *
  * Syntax: `filled{^|>|v|<}`, where:
  *   `^` = `flex-direction: column-reverse`
