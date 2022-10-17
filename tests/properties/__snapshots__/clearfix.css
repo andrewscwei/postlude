@@ -2,12 +2,12 @@
   *zoom: 1;
 }
 
-.a::before {
+.a:before {
   content: '';
   display: table;
 }
 
-.a::after {
+.a:after {
   content: '';
   display: table;
   clear: both;

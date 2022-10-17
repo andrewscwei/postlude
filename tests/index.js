@@ -6,54 +6,46 @@ const postcss = require('postcss')
 const sorting = require('postcss-sorting')
 const { default: postlude } = require('../lib')
 
-const CUSTOM_PROPERTIES_SPECS_DIR = path.join(__dirname, 'specs', 'properties')
-const AT_RULES_SPECS_DIR = path.join(__dirname, 'specs', 'at-rules')
 const SORTING_CONFIG = {
   'properties-order': 'alphabetical',
   'unspecified-properties-position': 'bottom',
 }
 
 async function compare(funcName, { type }) {
-  const dir = type === 'at-rule' ? AT_RULES_SPECS_DIR : CUSTOM_PROPERTIES_SPECS_DIR
-  const pcss = fs.readFileSync(path.join(dir, `${funcName}.pcss`), 'utf8')
-  const css = fs.readFileSync(path.join(dir, `${funcName}.css`), 'utf8')
-  const src = await postcss([sorting(SORTING_CONFIG), cssnano]).process(css, { from: undefined })
-  const dist = await postcss([postlude, sorting(SORTING_CONFIG), cssnano]).process(pcss, { from: undefined })
+  const dir = type === 'at-rule' ? 'at-rules' : 'properties'
+  const pcssRaw = fs.readFileSync(path.join(__dirname, dir, `${funcName}.pcss`), 'utf8')
+  const cssRaw = fs.readFileSync(path.join(__dirname, dir, '__snapshots__', `${funcName}.css`), 'utf8')
+  const pcssProcessed = await postcss([postlude, sorting(SORTING_CONFIG), cssnano]).process(pcssRaw, { from: undefined })
+  const cssProcessed = await postcss([sorting(SORTING_CONFIG), cssnano]).process(cssRaw, { from: undefined })
 
-  if (src.css !== dist.css) {
-    const message = `Unexpected post-processed results\n       Expectation: ${src.css}\n           Reality: ${dist.css}`
+  if (pcssProcessed.css !== cssProcessed.css) {
+    const message = `Unexpected post-processed results\n       Expectation: ${cssProcessed.css}\n           Reality: ${pcssProcessed.css}`
     throw new Error(message)
   }
 }
 
-describe('postlude', function() {
-  // Test custom properties.
-  if (fs.existsSync(CUSTOM_PROPERTIES_SPECS_DIR)) {
-    const funcNames = fs.readdirSync(CUSTOM_PROPERTIES_SPECS_DIR).reduce((out, val) => {
-      if (!val.endsWith('.pcss')) return out
-
-      return [...out, path.basename(val, '.pcss')]
-    }, [])
-
-    funcNames.forEach(funcName => {
-      it(`Custom property: ${funcName}`, async function() {
-        await compare(funcName, { type: 'property' })
-      })
-    })
-  }
-
-  // Test at-rules.
-  if (fs.existsSync(AT_RULES_SPECS_DIR)) {
-    const rules = fs.readdirSync(AT_RULES_SPECS_DIR).reduce((out, val) => {
-      if (!val.endsWith('.pcss')) return out
-
-      return [...out, path.basename(val, '.pcss')]
-    }, [])
+describe('postlude', () => {
+  describe('at-rules', () => {
+    const rules = fs.readdirSync(path.join(__dirname, 'at-rules'))
+      .filter(t => path.extname(t) === '.pcss')
+      .map(t => path.basename(t, '.pcss'))
 
     rules.forEach(ruleName => {
-      it(`At-rule: ${ruleName}`, async () => {
+      it(`${ruleName}`, async () => {
         await compare(ruleName, { type: 'at-rule' })
       })
     })
-  }
+  })
+
+  describe('custom properties', () => {
+    const funcNames = fs.readdirSync(path.join(__dirname, 'properties'))
+      .filter(t => path.extname(t) === '.pcss')
+      .map(t => path.basename(t, '.pcss'))
+
+    funcNames.forEach(funcName => {
+      it(`${funcName}`, async function() {
+        await compare(funcName, { type: 'property' })
+      })
+    })
+  })
 })
