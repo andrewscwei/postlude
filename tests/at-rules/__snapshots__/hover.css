@@ -1,0 +1,3 @@
+html:not(.touch) .a:hover {
+  width: 10px;
+}

@@ -1,0 +1,13 @@
+.a {
+  transition-property: opacity, color;
+  transition-duration: .3s;
+  transition-timing-function: ease;
+  transition-delay: 3s;
+}
+
+.b {
+  transition-property: background-color;
+  transition-duration: .3s, 4s;
+  transition-timing-function: ease-out;
+  transition-delay: 0s;
+}

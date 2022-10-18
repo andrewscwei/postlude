@@ -1,0 +1,14 @@
+.a {
+  *zoom: 1;
+}
+
+.a:before {
+  content: '';
+  display: table;
+}
+
+.a:after {
+  content: '';
+  display: table;
+  clear: both;
+}
