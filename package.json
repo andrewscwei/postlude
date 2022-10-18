@@ -42,6 +42,7 @@
   "devDependencies": {
     "@types/debug": "^4.1.7",
     "@types/lodash": "^4.14.186",
+    "@types/mocha": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
     "@typescript-eslint/parser": "^5.40.0",
     "babel-eslint": "^10.0.3",
