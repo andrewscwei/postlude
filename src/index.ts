@@ -6,9 +6,10 @@
 
 /* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 
-import path from 'path'
 import { AtRule, Declaration, Plugin } from 'postcss'
 import valueParser from 'postcss-value-parser'
+import atRules from './at-rules'
+import declarations from './declarations'
 import isNull from './utils/isNull'
 import debug from './utils/useDebug'
 
@@ -70,20 +71,20 @@ postlude.postcss = true
 
 export default postlude
 
-/* eslint-disable @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires */
 function getFunc(name: string, type: 'at-rule' | 'declaration'): (node: AtRule | Declaration, ...args: any[]) => void {
-  const funcPath = path.join(__dirname, type === 'at-rule' ? 'at-rules' : 'declarations', name)
-  const altFuncPath = path.join(__dirname, 'all', name)
+  switch (type) {
+    case 'declaration': {
+      const func = (declarations as any)[name]
+      if (!func) throw Error(`No custom declaration found with name <${name}>`)
 
-  try {
-    return require(funcPath).default
-  }
-  catch {
-    try {
-      return require(altFuncPath).default
+      return func
     }
-    catch {
-      throw Error(`No custom ${type} found with name <${name}>`)
+    case 'at-rule':
+    default: {
+      const func = (atRules as any)[name] ?? (declarations as any)[name]
+      if (!func) throw Error(`No custom at-rule found with name <${name}>`)
+
+      return func
     }
   }
 }

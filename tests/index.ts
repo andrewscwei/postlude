@@ -22,7 +22,7 @@ async function compare(funcName: string, type: 'at-rule' | 'declaration') {
   const cssProcessed = await postcss([sortingPlugin(SORTING_CONFIG), cssnano]).process(cssRaw, { from: undefined })
 
   if (pcssProcessed.css !== cssProcessed.css) {
-    const message = `Unexpected post-processed results\n\tExpectation: ${cssProcessed.css}\n\tReality: ${pcssProcessed.css}`
+    const message = `Unexpected post-processed results\n\tExpectation:\t${cssProcessed.css}\n\tReality:\t${pcssProcessed.css}`
     throw new Error(message)
   }
 }

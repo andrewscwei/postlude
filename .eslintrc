@@ -185,7 +185,7 @@
       "error",
       "never"
     ],
-    "@typescript-eslint/sort-type-union-intersection-members": "error",
+    "@typescript-eslint/sort-type-union-intersection-members": "off",
     "@typescript-eslint/space-before-blocks": [
       "error",
       "always"
