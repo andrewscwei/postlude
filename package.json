@@ -1,6 +1,6 @@
 {
   "name": "postlude",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "description": "An experimental PostCSS plugin with a collection of custom CSS properties and at-rules",
   "main": "lib/index.js",
   "files": [
@@ -43,14 +43,14 @@
     "@types/debug": "^4.1.7",
     "@types/lodash": "^4.14.186",
     "@types/mocha": "^10.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.40.0",
-    "@typescript-eslint/parser": "^5.40.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.1",
+    "@typescript-eslint/parser": "^5.40.1",
     "babel-eslint": "^10.0.3",
     "cssnano": "^5.1.13",
     "eslint": "^8.25.0",
-    "mocha": "^10.0.0",
+    "mocha": "^10.1.0",
     "postcss-sorting": "^7.0.1",
-    "stylelint": "^14.13.0",
+    "stylelint": "^14.14.0",
     "stylelint-order": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.8.4"
