@@ -1,5 +1,4 @@
 import { default as align } from './align'
-import { default as box } from './box'
 import { default as clearfix } from './clearfix'
 import { default as containedBackground } from './contained-background'
 import { default as coverBackground } from './cover-background'
@@ -19,7 +18,6 @@ import { default as transition } from './transition'
 
 export default {
   align,
-  box,
   clearfix,
   'contained-background': containedBackground,
   'cnbg': containedBackground,
