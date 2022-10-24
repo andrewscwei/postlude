@@ -7,7 +7,7 @@ import postcss, { AtRule, Rule } from 'postcss'
  * @param atRule - The {@link AtRule} to transform.
  */
 export default function(atRule: AtRule) {
-  assert(atRule.parent?.type === 'rule', 'No selector found')
+  assert(atRule.parent?.type === 'rule' || atRule.parent?.type === 'atrule', 'No selector found')
   assert(atRule.parent?.parent, 'No parent container found')
 
   const parent = atRule.parent as Rule

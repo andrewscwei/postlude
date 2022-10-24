@@ -32,7 +32,7 @@ import parseArg from '../utils/parseArg'
  *                  is inline, defaults to not inline
  */
 export default function(atRule: AtRule, ...args: string[]) {
-  assert(atRule.parent?.type === 'rule', 'No selector found')
+  assert(atRule.parent?.type === 'rule' || atRule.parent?.type === 'atrule', `No selector found from parent of type <${atRule.parent?.type}>`)
   assert(atRule.parent?.parent, 'No parent container found')
 
   const parent = atRule.parent as Rule
