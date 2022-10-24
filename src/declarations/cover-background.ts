@@ -9,7 +9,7 @@ import { AtRule, Declaration } from 'postcss'
  */
 export default function(node: AtRule | Declaration, srcs?: string) {
   const rules = []
-  if (srcs) rules.push({ prop: 'background-images', value: srcs.split('|').map(t => `url('${t}')`).join(', '), source: node.source })
+  if (srcs) rules.push({ prop: 'background-image', value: srcs.split('|').map(t => `url('${t}')`).join(', '), source: node.source })
   rules.push({ prop: 'background-position', value: 'center', source: node.source })
   rules.push({ prop: 'background-repeat', value: 'no-repeat', source: node.source })
   rules.push({ prop: 'background-size', value: 'cover', source: node.source })
