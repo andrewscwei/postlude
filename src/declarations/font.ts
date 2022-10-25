@@ -47,14 +47,14 @@ export default function(
   letterSpacing: LetterSpacing = 'normal',
   variant: FontVariant = 'normal',
 ) {
-  const rules = []
-  rules.push({ prop: 'font-family', value: family, source: node.source })
-  rules.push({ prop: 'font-size', value: size, source: node.source })
-  rules.push({ prop: 'font-weight', value: !isNaN(parseInt(String(weight), 10)) ? weight : FONT_WEIGHTS[weight] ?? FONT_WEIGHTS.normal, source: node.source })
-  rules.push({ prop: 'font-style', value: style, source: node.source })
-  rules.push({ prop: 'font-variant', value: variant, source: node.source })
-  rules.push({ prop: 'line-height', value: lineHeight, source: node.source })
-  rules.push({ prop: 'letter-spacing', value: letterSpacing, source: node.source })
+  const decls = []
+  decls.push({ prop: 'font-family', value: family, source: node.source })
+  decls.push({ prop: 'font-size', value: size, source: node.source })
+  decls.push({ prop: 'font-weight', value: !isNaN(parseInt(String(weight), 10)) ? weight : FONT_WEIGHTS[weight] ?? FONT_WEIGHTS.normal, source: node.source })
+  decls.push({ prop: 'font-style', value: style, source: node.source })
+  decls.push({ prop: 'font-variant', value: variant, source: node.source })
+  decls.push({ prop: 'line-height', value: lineHeight, source: node.source })
+  decls.push({ prop: 'letter-spacing', value: letterSpacing, source: node.source })
 
-  node.replaceWith(...rules)
+  node.replaceWith(...decls)
 }

@@ -21,10 +21,10 @@ export default function(node: AtRule | Declaration, ...args: string[]) {
   const height = isBool(args[0]) || args[0] === undefined ? width : args.shift()
   const isOval = isBool(args[0]) ? args[0] : false
 
-  const rules = []
+  const decls = []
 
-  if (width !== '_') rules.push({ prop: 'width', value: width, source: node.source })
-  if (height !== '_') rules.push({ prop: 'height', value: height, source: node.source })
+  if (width !== '_') decls.push({ prop: 'width', value: width, source: node.source })
+  if (height !== '_') decls.push({ prop: 'height', value: height, source: node.source })
   if (isOval) {
     const w = valueParser.unit(width ?? '')
     const h = valueParser.unit(height ?? '')
@@ -47,10 +47,10 @@ export default function(node: AtRule | Declaration, ...args: string[]) {
     }
 
     if (diameter) {
-      rules.push({ prop: 'border-radius', value: `${Number(diameter.number) / 2}${diameter.unit}`, source: node.source })
-      rules.push({ prop: 'overflow', value: 'hidden', source: node.source })
+      decls.push({ prop: 'border-radius', value: `${Number(diameter.number) / 2}${diameter.unit}`, source: node.source })
+      decls.push({ prop: 'overflow', value: 'hidden', source: node.source })
     }
   }
 
-  node.replaceWith(...rules)
+  node.replaceWith(...decls)
 }

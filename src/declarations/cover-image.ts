@@ -8,10 +8,10 @@ import { AtRule, Declaration } from 'postcss'
  * @see {@link http://caniuse.com/#feat=object-fit}
  */
 export default function(node: AtRule | Declaration) {
-  const rules = []
-  rules.push({ prop: 'width', value: '100%', source: node.source })
-  rules.push({ prop: 'height', value: '100%', source: node.source })
-  rules.push({ prop: 'object-fit', value: 'cover', source: node.source })
+  const decls = []
+  decls.push({ prop: 'width', value: '100%', source: node.source })
+  decls.push({ prop: 'height', value: '100%', source: node.source })
+  decls.push({ prop: 'object-fit', value: 'cover', source: node.source })
 
-  node.replaceWith(...rules)
+  node.replaceWith(...decls)
 }

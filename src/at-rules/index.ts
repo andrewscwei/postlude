@@ -1,18 +1,18 @@
-import { default as box } from './box'
+import { default as flex } from './flex'
 import { default as fontFace } from './font-face'
-import { default as hbox } from './hbox'
+import { default as hflex } from './hflex'
 import { default as hover } from './hover'
 import { default as media } from './media'
 import { default as normalize } from './normalize'
-import { default as vbox } from './vbox'
+import { default as vflex } from './vflex'
 
 export default {
-  box,
+  flex,
   'font-face': fontFace,
   'ff': fontFace,
-  hbox,
+  hflex,
   hover,
   media,
   normalize,
-  vbox,
+  vflex,
 }

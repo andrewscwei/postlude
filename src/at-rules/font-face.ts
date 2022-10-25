@@ -11,7 +11,7 @@ import { FontDisplay, FontFormat, FontStyle, FontWeight, FONT_WEIGHTS } from '..
  * @param style - Font style, automatically inferred if unspecified.
  * @param display - Font display, automatically inferred if unspecified.
  *
- * @returns Generated CSS rules.
+ * @returns Generated CSS decls.
  *
  * @example
  *   @post fontFace('Roboto', require('fonts/Roboto.ttf'));
@@ -31,14 +31,14 @@ export default function(atRule: AtRule, family: string, src: string, weight?: Fo
   atRule.params = ''
   atRule.raws.afterName = ''
 
-  const rules = []
-  rules.push({ prop: 'font-family', value: family, source: atRule.source })
-  rules.push({ prop: 'src', value: `url('${src}') format('${getFontFormatFromPath(src)}')`, source: atRule.source })
-  rules.push({ prop: 'font-style', value: style || getFontStyleFromPath(src), source: atRule.source })
-  rules.push({ prop: 'font-weight', value: weight || getFontWeightFromPath(src), source: atRule.source })
-  rules.push({ prop: 'font-display', value: display || 'auto', source: atRule.source })
+  const decls = []
+  decls.push({ prop: 'font-family', value: family, source: atRule.source })
+  decls.push({ prop: 'src', value: `url('${src}') format('${getFontFormatFromPath(src)}')`, source: atRule.source })
+  decls.push({ prop: 'font-style', value: style || getFontStyleFromPath(src), source: atRule.source })
+  decls.push({ prop: 'font-weight', value: weight || getFontWeightFromPath(src), source: atRule.source })
+  decls.push({ prop: 'font-display', value: display || 'auto', source: atRule.source })
 
-  atRule.append(...rules)
+  atRule.append(...decls)
 }
 
 /**

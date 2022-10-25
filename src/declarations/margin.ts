@@ -64,11 +64,11 @@ export default function(node: AtRule | Declaration, top: string, right?: string,
     default: l = left
   }
 
-  const rules = []
-  if (t) rules.push({ prop: 'margin-top', value: t, source: node.source })
-  if (r) rules.push({ prop: 'margin-right', value: r, source: node.source })
-  if (b) rules.push({ prop: 'margin-bottom', value: b, source: node.source })
-  if (l) rules.push({ prop: 'margin-left', value: l, source: node.source })
+  const decls = []
+  if (t) decls.push({ prop: 'margin-top', value: t, source: node.source })
+  if (r) decls.push({ prop: 'margin-right', value: r, source: node.source })
+  if (b) decls.push({ prop: 'margin-bottom', value: b, source: node.source })
+  if (l) decls.push({ prop: 'margin-left', value: l, source: node.source })
 
-  node.replaceWith(...rules)
+  node.replaceWith(...decls)
 }

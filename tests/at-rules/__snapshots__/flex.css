@@ -6,12 +6,12 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.a > * {
-  flex-grow: 0;
-  flex-basis: auto;
-  flex-shrink: 0;
+  & > * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 0;
+  }
 }
 
 .b {
@@ -22,12 +22,12 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.b > * {
-  flex-grow: 0;
-  flex-basis: auto;
-  flex-shrink: 1;
+  & > * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 1;
+  }
 }
 
 .c {
@@ -38,12 +38,12 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.c > * {
-  flex-grow: 1;
-  flex-basis: 0;
-  flex-shrink: 0;
+  & > * {
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-shrink: 0;
+  }
 }
 
 .d {
@@ -54,12 +54,12 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.d > * {
-  flex-grow: 0;
-  flex-basis: auto;
-  flex-shrink: 0;
+  & > * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 0;
+  }
 }
 
 .e {
@@ -70,12 +70,12 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.e > * {
-  flex-grow: 0;
-  flex-basis: auto;
-  flex-shrink: 1;
+  &> * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 1;
+  }
 }
 
 .f {
@@ -86,10 +86,10 @@
   flex-wrap: nowrap;
   line-height: normal;
   white-space: normal;
-}
 
-.f > * {
-  flex-grow: 0;
-  flex-basis: auto;
-  flex-shrink: 0;
+  & > * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 0;
+  }
 }

@@ -11,10 +11,10 @@ import { AtRule, Declaration } from 'postcss'
 export default function(node: AtRule | Declaration, overflowX: string, overflowY?: string) {
   const x = overflowX
   const y = overflowY === undefined ? x : overflowY
-  const rules = []
+  const decls = []
 
-  if (x !== '_') rules.push({ prop: 'overflow-x', value: x, source: node.source })
-  if (y !== '_') rules.push({ prop: 'overflow-y', value: y, source: node.source })
+  if (x !== '_') decls.push({ prop: 'overflow-x', value: x, source: node.source })
+  if (y !== '_') decls.push({ prop: 'overflow-y', value: y, source: node.source })
 
-  node.replaceWith(...rules)
+  node.replaceWith(...decls)
 }
