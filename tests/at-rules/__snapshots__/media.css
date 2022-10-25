@@ -30,6 +30,8 @@
   display: none;
 }
 
-@media (min-width: 481px) {
-  display: none;
+.test {
+  @media (min-width: 481px) {
+    display: none;
+  }
 }

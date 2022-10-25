@@ -1,7 +1,0 @@
-.a:not(:last-child) {
-  margin-right: 20px;
-}
-
-.b:not(:last-child) {
-  margin-bottom: 10px;
-}
