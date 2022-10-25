@@ -1,6 +1,6 @@
 import { AtRule } from 'postcss'
-import flex from './flex'
+import stack from './stack'
 
 export default function(atRule: AtRule, ...args: string[]) {
-  return flex(atRule, 'row', ...args)
+  return stack(atRule, 'row', ...args)
 }

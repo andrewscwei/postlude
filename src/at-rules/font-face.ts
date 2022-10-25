@@ -1,4 +1,4 @@
-import { AtRule } from 'postcss'
+import { AtRule, Declaration } from 'postcss'
 import { FontDisplay, FontFormat, FontStyle, FontWeight, FONT_WEIGHTS } from '../types'
 
 /**
@@ -32,11 +32,11 @@ export default function(atRule: AtRule, family: string, src: string, weight?: Fo
   atRule.raws.afterName = ''
 
   const decls = []
-  decls.push({ prop: 'font-family', value: family, source: atRule.source })
-  decls.push({ prop: 'src', value: `url('${src}') format('${getFontFormatFromPath(src)}')`, source: atRule.source })
-  decls.push({ prop: 'font-style', value: style || getFontStyleFromPath(src), source: atRule.source })
-  decls.push({ prop: 'font-weight', value: weight || getFontWeightFromPath(src), source: atRule.source })
-  decls.push({ prop: 'font-display', value: display || 'auto', source: atRule.source })
+  decls.push(new Declaration({ prop: 'font-family', value: family }))
+  decls.push(new Declaration({ prop: 'src', value: `url('${src}') format('${getFontFormatFromPath(src)}')` }))
+  decls.push(new Declaration({ prop: 'font-style', value: style || getFontStyleFromPath(src) }))
+  decls.push(new Declaration({ prop: 'font-weight', value: String(weight || getFontWeightFromPath(src)) }))
+  decls.push(new Declaration({ prop: 'font-display', value: display || 'auto' }))
 
   atRule.append(...decls)
 }

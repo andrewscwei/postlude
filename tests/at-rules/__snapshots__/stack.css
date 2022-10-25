@@ -1,0 +1,22 @@
+.a {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  line-height: normal;
+  white-space: normal;
+
+  & > * {
+    flex-grow: 0;
+    flex-basis: auto;
+    flex-shrink: 0;
+  }
+
+  & > *:not(:last-child) {
+    margin-top: unset;
+    margin-right: 1rem;
+    margin-bottom: unset;
+    margin-left: unset;
+  }
+}
