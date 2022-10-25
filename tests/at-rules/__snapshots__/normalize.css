@@ -399,3 +399,9 @@ html.supports-no-cookies .supports-cookies,
 html:not(.supports-no-cookies) .supports-no-cookies {
   display: none !important;
 }
+
+#app,
+#root {
+  height: 100%;
+  width: 100%;
+}
