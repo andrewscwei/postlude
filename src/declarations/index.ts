@@ -13,7 +13,6 @@ import { default as minSize } from './min-size'
 import { default as overflow } from './overflow'
 import { default as padding } from './padding'
 import { default as size } from './size'
-import { default as spaceBetween } from './space-between'
 import { default as transition } from './transition'
 
 export default {
@@ -36,7 +35,5 @@ export default {
   overflow,
   padding,
   size,
-  'space-between': spaceBetween,
-  'sb': spaceBetween,
   transition,
 }
