@@ -8,6 +8,6 @@ import { AtRule } from 'postcss'
  * @requires postcss-nesting
  */
 export default function(atRule: AtRule) {
-  atRule.name = 'nested'
+  atRule.name = 'nest'
   atRule.params = 'html:not([data-touch=true]) &:hover'
 }

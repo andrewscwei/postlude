@@ -10,7 +10,6 @@
       {
         "ignoreAtRules": [
           "value",
-          "nested",
           "post"
         ]
       }

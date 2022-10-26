@@ -1,5 +1,5 @@
 .a {
-  @nested html:not([data-touch=true]) &:hover {
+  @nest html:not([data-touch=true]) &:hover {
     width: 10px;
   }
 }

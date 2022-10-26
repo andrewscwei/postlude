@@ -30,7 +30,7 @@
   display: none;
 }
 
-.test {
+.a {
   @media (min-width: 481px) {
     display: none;
   }
