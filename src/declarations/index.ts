@@ -1,5 +1,4 @@
 import { default as align } from './align'
-import { default as clearfix } from './clearfix'
 import { default as containedBackground } from './contained-background'
 import { default as coverBackground } from './cover-background'
 import { default as coverImage } from './cover-image'
@@ -17,7 +16,6 @@ import { default as transition } from './transition'
 
 export default {
   align,
-  clearfix,
   'contained-background': containedBackground,
   'cnbg': containedBackground,
   'cover-background': coverBackground,
