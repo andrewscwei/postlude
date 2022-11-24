@@ -4,7 +4,8 @@ import { AtRule, Declaration } from 'postcss'
  * Aligns an element horizontally and vertically to its parent.
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
- * @param args - A minimum of 1 to a maximum of 3 arguments, order does not matter:
+ * @param args - A minimum of 1 to a maximum of 3 arguments, order does not
+ *               matter:
  *               1. Horizontal alignment: `left`, `right` or `center` (default)
  *               2. Vertical alignment: `top`, `bottom` or `center` (default)
  *               3. Position rule: `fixed` or `absolute` (default)

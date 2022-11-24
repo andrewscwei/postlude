@@ -2,25 +2,30 @@ import { AtRule, Rule } from 'postcss'
 import parseArg from '../utils/parseArg'
 
 /**
- * Transforms an element into a container that stacks child elements in a certain direction. The
- * behavior of this at-rule is similar to that of {@link flex}, except you can only specify the
- * alignment of the opposite direction (i.e. if `horizontal` is specified as the direction, then
- * this at-rule only accepts `top`, `center` or `right` as the vertical alignment).
+ * Transforms an element into a container that stacks child elements in a
+ * certain direction. The behavior of this at-rule is similar to that of
+ * {@link flex}, except you can only specify the alignment of the opposite
+ * direction (i.e. if `horizontal` is specified as the direction, then this
+ * at-rule only accepts `top`, `center` or `right` as the vertical alignment).
  *
- * Syntax: `{fill_type} {direction} {horizontal_or_vertical_align} {gap} {inline} {reverse}`
+ * Syntax: `{fill_type} {direction} {horizontal_or_vertical_align} {gap}
+ * {inline} {reverse}`
  *
  * @param atRule - The {@link AtRule} to transform.
- * @param args - A minimum of 0 to a maximum of 6 arguments, order doesn't matter:
+ * @param args - A minimum of 0 to a maximum of 6 arguments, order doesn't
+ *               matter:
  *               1. Optional fill type (i.e. `constrain`, `fill`)
- *               2. Child alignment direction (i.e. `horizontal` (default) or `vertical`
- *               3. Horizontal or vertical alignment of child elements depending on the specified
- *                  direction (the alignment here is always referring to opposite axis of the
- *                  direction): `top`/`left`, `bottom`/`right` or `center` (default)
+ *               2. Child alignment direction (i.e. `horizontal` (default) or
+ *                  `vertical`
+ *               3. Horizontal or vertical alignment of child elements depending
+ *                  on the specified direction (the alignment here is always
+ *                  referring to opposite axis of the direction): `top`/`left`,
+ *                  `bottom`/`right` or `center` (default)
  *               4, The gap between each child element, defaults to 0
- *               5. Either a string literal "inline" or unspecified, indicates if the flexbox is
- *                  inline, defaults to not inline
- *               6. Either a string literal "reverse" or unspecified, indicates if the flexbox
- *                  direction is reversed
+ *               5. Either a string literal "inline" or unspecified, indicates
+ *                  if the flexbox is inline, defaults to not inline
+ *               6. Either a string literal "reverse" or unspecified, indicates
+ *                  if the flexbox direction is reversed
  *
  * @requires postcss-nesting
  */

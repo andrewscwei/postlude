@@ -2,9 +2,10 @@ import assert from 'assert'
 import { AtRule, Declaration } from 'postcss'
 
 /**
- * Sets the padding of the target selector. Similar to the original 'padding' CSS rule, except for
- * the addition of 2 values: `_` and `~`. If `_` is used, that side will not be set. If `~` is used,
- * that side will take the value of the previous side.
+ * Sets the padding of the target selector. Similar to the original 'padding'
+ * CSS rule, except for the addition of 2 values: `_` and `~`. If `_` is used,
+ * that side will not be set. If `~` is used, that side will take the value of
+ * the previous side.
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
  * @param top - Value for the top padding.

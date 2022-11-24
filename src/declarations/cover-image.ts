@@ -1,7 +1,8 @@
 import { AtRule, Declaration } from 'postcss'
 
 /**
- * Makes an image fill the parent. Note that this feature is not supported by all browsers.
+ * Makes an image fill the parent. Note that this feature is not supported by
+ * all browsers.
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
  *

@@ -10,8 +10,8 @@ import isBool from '../utils/isBool'
  * @param args - A minimum of 1 to a maximum of 3 arguments:
  *               1. The width
  *               2. The height (defaults to the width)
- *               3. Indicates whether the selector is an oval by applying `border-radius` rule that
- *                  is half of its smallest edge.
+ *               3. Indicates whether the selector is an oval by applying
+ *                  `border-radius` rule that is half of its smallest edge.
  */
 export default function(node: AtRule | Declaration, ...args: string[]) {
   assert(args.length >= 1 && args.length <= 3, 'This method must accept 1..3 arguments')

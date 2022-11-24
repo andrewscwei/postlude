@@ -5,8 +5,8 @@ import { AtRule, Declaration } from 'postcss'
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
  * @param overflowX - Specifies the overflow-x property.
- * @param overflowY - Specifies the overflow-y property. If unspecified the `overflowX` param will
- *                    be used.
+ * @param overflowY - Specifies the overflow-y property. If unspecified the
+ *                    `overflowX` param will be used.
  */
 export default function(node: AtRule | Declaration, overflowX: string, overflowY?: string) {
   const x = overflowX

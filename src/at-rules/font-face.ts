@@ -42,8 +42,8 @@ export default function(atRule: AtRule, family: string, src: string, weight?: Fo
 }
 
 /**
- * Infers the font format from a font file extension. Supported extensions include: `eot`, `woff2`,
- * `woff`, `ttf`, `otf`, `svg`.
+ * Infers the font format from a font file extension. Supported extensions
+ * include: `eot`, `woff2`, `woff`, `ttf`, `otf`, `svg`.
  *
  * @param path - The path of the font file.
  *
@@ -81,7 +81,8 @@ function getFontFormatFromPath(path: string): FontFormat {
  *
  * @param path - Path of the font file.
  *
- * @returns The font style of the font file. Defaults to `normal` if unable to infer.
+ * @returns The font style of the font file. Defaults to `normal` if unable to
+ *          infer.
  */
 function getFontStyleFromPath(path: string): FontStyle {
   const basename = path.split('/').pop()

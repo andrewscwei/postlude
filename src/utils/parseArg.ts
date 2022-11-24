@@ -1,8 +1,8 @@
 import assert from 'assert'
 
 /**
- * Parses a list of arguments, returns the first matched argument that is whitelisted. If no matched
- * argument is found, `undefined` is returned.
+ * Parses a list of arguments, returns the first matched argument that is
+ * whitelisted. If no matched argument is found, `undefined` is returned.
  *
  * @param args - A list of string arguments.
  * @param whitelist - A list of whitelisted arguments.
@@ -12,12 +12,14 @@ import assert from 'assert'
 function parseArg(args: string[], whitelist: string[]): string | undefined
 
 /**
- * Parses a list of arguments, returns the first matched argument that is whitelisted. If no matched
- * argument is found, an optional default value is returned, otherwise `undefined` is returned.
+ * Parses a list of arguments, returns the first matched argument that is
+ * whitelisted. If no matched argument is found, an optional default value is
+ * returned, otherwise `undefined` is returned.
  *
  * @param args - A list of string arguments.
  * @param whitelist - A list of whitelisted arguments.
- * @param defaultValue - The default value to return if a matched argument cannot be found.
+ * @param defaultValue - The default value to return if a matched argument
+ *                       cannot be found.
  *
  * @returns The matched argument, else the default value, else `undefined`.
  */

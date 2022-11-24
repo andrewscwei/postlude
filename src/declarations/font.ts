@@ -10,16 +10,18 @@ import { FontStyle, FontVariant, FontWeight, FONT_WEIGHTS, LetterSpacing, LineHe
  * @param weight - The `font-weight` property.
  */
 /**
- * Sets the font properties for the target selector. All numbers default to `rem` unit.
+ * Sets the font properties for the target selector. All numbers default to
+ * `rem` unit.
  *
  * @param family - Font family.
- * @param size - Font size. If the value specified is a number, the associated unit will be 'rem'.
+ * @param size - Font size. If the value specified is a number, the associated
+ *               unit will be 'rem'.
  * @param weight - Font weight.
  * @param style - Font style.
- * @param lineHeight - Line height. If the value specified is a number, the associated unit will be
- *                     'rem'.
- * @param letterSpacing - Letter spacing. If the value specified is a number, the associated unit
- *                        will be 'rem'.
+ * @param lineHeight - Line height. If the value specified is a number, the
+ *                     associated unit will be 'rem'.
+ * @param letterSpacing - Letter spacing. If the value specified is a number,
+ *                        the associated unit will be 'rem'.
  * @param variant - Font variant.
  *
  * @example

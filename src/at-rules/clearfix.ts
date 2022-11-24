@@ -7,7 +7,7 @@ import postcss, { AtRule } from 'postcss'
  *
  * @requires postcss-nesting
  */
-export default function clearfix(atRule: AtRule) {
+export default function(atRule: AtRule) {
   const beforeRule = postcss.rule({ selector: '&::before' })
   beforeRule.append({ prop: 'content', value: '\'\'', source: atRule.source })
   beforeRule.append({ prop: 'display', value: 'table', source: atRule.source })

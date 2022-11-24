@@ -3,33 +3,40 @@ import parseArg from '../utils/parseArg'
 
 /**
  * Transforms an element into a flexbox of the specified `fillType`:
- *   1. `undefined` - Default `fillType`. Freely aligns child elements without interfering with
- *                    their width and height. Child elements can then specify their own dimensions.
- *   2. `constrain` - Automatically arranges children in the specified `flex-direction`. The lengths
- *                    of the children that are parallel to the `flex-direction` are not set and must
- *                    be specified by the children. Contrarily, the lengths of the children that are
- *                    perpendicular to the `flex-direction` will match that of the container. If the
- *                    total length of the children in the specified `flex-direction` exceeds that of
- *                    the container, the length of each child will shrink (`flex-shrink: 1`)
- *                    proportional to its original length in order to fit the container. It is not
- *                    recommended to add `padding` to the children because `padding` is used as part
- *                    of the calculation for `flex-shrink`.
- *   3. `fill` - Opposite of `constrain`, where a `fill` flexbox automatically stretches its
- *               children evenly to fill itself in the specified `flex-direction`. Avoid adding
- *               `padding` to child elements.
+ *   1. `undefined` - Default `fillType`. Freely aligns child elements without
+ *                    interfering with their width and height. Child elements
+ *                    can then specify their own dimensions.
+ *   2. `constrain` - Automatically arranges children in the specified
+ *                    `flex-direction`. The lengths of the children that are
+ *                    parallel to the `flex-direction` are not set and must be
+ *                    specified by the children. Contrarily, the lengths of the
+ *                    children that are perpendicular to the `flex-direction`
+ *                    will match that of the container. If the total length of
+ *                    the children in the specified `flex-direction` exceeds
+ *                    that of the container, the length of each child will
+ *                    shrink (`flex-shrink: 1`) proportional to its original
+ *                    length in order to fit the container. It is not
+ *                    recommended to add `padding` to the children because
+ *                    `padding` is used as part of the calculation for
+ *                    `flex-shrink`.
+ *   3. `fill` - Opposite of `constrain`, where a `fill` flexbox automatically
+ *               stretches its children evenly to fill itself in the specified
+ *               `flex-direction`. Avoid adding `padding` to child elements.
  *
- * Syntax: `{fill_type} {direction} {horizontal_align} {vertical_align} {inline} {reverse}`
+ * Syntax: `{fill_type} {direction} {horizontal_align} {vertical_align} {inline}
+ * {reverse}`
  *
  * @param atRule - The {@link AtRule} to transform.
- * @param args - A minimum of 0 to a maximum of 6 arguments, order doesn't matter:
- *               1. Optional fill type (i.e. `constrain`, `fill`)
- *               2. Child alignment direction (i.e. `horizontal` (default) or `vertical`
- *               3. Horizontal alignment of child elements: `left`, `right` or `center` (default)
- *               4. Vertical alignment of child elements: `top`, `bottom` or `center` (default)
- *               5. Either a string literal "inline" or unspecified, indicates if the flexbox is
- *                  inline, defaults to not inline
- *               6. Either a string literal "reverse" or unspecified, indicates if the flexbox
- *                  direction is reversed
+ * @param args - A minimum of 0 to a maximum of 6 arguments, order doesn't
+ *               matter: 1. Optional fill type (i.e. `constrain`, `fill`) 2.
+ *               Child alignment direction (i.e. `horizontal` (default) or
+ *               `vertical` 3. Horizontal alignment of child elements: `left`,
+ *               `right` or `center` (default) 4. Vertical alignment of child
+ *               elements: `top`, `bottom` or `center` (default) 5. Either a
+ *               string literal "inline" or unspecified, indicates if the
+ *               flexbox is inline, defaults to not inline 6. Either a string
+ *               literal "reverse" or unspecified, indicates if the flexbox
+ *               direction is reversed
  *
  * @requires postcss-nesting
  */

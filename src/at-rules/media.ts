@@ -16,8 +16,10 @@ const BREAKPOINTS: Record<string, number> = {
  * Transforms a custom at-rule into a media query rule.
  *
  * @param atRule - The {@link AtRule} to transform.
- * @param descriptor - Strings formatted by either `{length}{operator}{length_or_device_type}` or
- *                     `{orientation}`. If no `{length}` is specified, width will be used.
+ * @param descriptor - Strings formatted by either
+ *                     `{length}{operator}{length_or_device_type}` or
+ *                     `{orientation}`. If no `{length}` is specified, width
+ *                     will be used.
  *
  * @example
  *   @post media('w<200px') { ... } // or

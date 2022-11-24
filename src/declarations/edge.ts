@@ -2,10 +2,11 @@ import assert from 'assert'
 import { AtRule, Declaration } from 'postcss'
 
 /**
- * Sets the edge of an element (i.e. top, right, bottom and left). This function makes setting edges
- * similar to margins and paddings where you can apply a list of up to 4 values to define all edges.
- * If `_` is specified for a specific edge, that edge will not be set. If `~` is specified for a
- * specific edge, it will take the value of the previous edge.
+ * Sets the edge of an element (i.e. top, right, bottom and left). This function
+ * makes setting edges similar to margins and paddings where you can apply a
+ * list of up to 4 values to define all edges. If `_` is specified for a
+ * specific edge, that edge will not be set. If `~` is specified for a specific
+ * edge, it will take the value of the previous edge.
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
  * @param top - Value for the top edge.

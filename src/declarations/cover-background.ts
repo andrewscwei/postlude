@@ -4,8 +4,8 @@ import { AtRule, Declaration } from 'postcss'
  * Applies cover background decls to the target selector.
  *
  * @param node - The {@link AtRule} or {@link Declaration} to transform.
- * @param srcs - The source path of the image(s), delimited by `|`. If unspecified the
- *               `background-image` rule will not be set.
+ * @param srcs - The source path of the image(s), delimited by `|`. If
+ *               unspecified the `background-image` rule will not be set.
  */
 export default function(node: AtRule | Declaration, srcs?: string) {
   const decls = []
